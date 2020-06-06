@@ -265,8 +265,8 @@
     <string name="account_logout">Wyloguj</string>
     <string name="account_confirm">Czy chcesz wylogować aktualnego ucznia?</string>
     <string name="account_logout_student">Wylogowanie ucznia</string>
-    <string name="account_type_student">Uczeń</string>
-    <string name="account_type_parent">Rodzic</string>
+    <string name="account_type_student">Konto ucznia</string>
+    <string name="account_type_parent">Konto rodzica</string>
     <!--About-->
     <string name="about_version">Wersja aplikacji</string>
     <string name="about_contributor">Twórcy</string>
