@@ -1,6 +1,7 @@
 package io.github.wulkanowy.ui.modules.account
 
 import io.github.wulkanowy.data.db.entities.Student
+import io.github.wulkanowy.data.pojos.Account
 import io.github.wulkanowy.data.repositories.student.StudentRepository
 import io.github.wulkanowy.services.sync.SyncManager
 import io.github.wulkanowy.ui.base.BasePresenter
@@ -83,11 +84,21 @@ class AccountPresenter @Inject constructor(
         }
     }
 
+    private fun createAccountItems(items: List<Student>): List<AccountItem<*>> {
+        return items.groupBy { Account(it.email, it.isParent) }.map { (account, students) ->
+            Timber.i("Account: ${account}\nFirst student: ${students.first()}")
+            listOf(AccountItem(account, AccountItem.ViewType.HEADER)) + students.map { student ->
+                AccountItem(student, AccountItem.ViewType.ITEM)
+            }
+        }.flatten()
+    }
+
     private fun loadData() {
         Timber.i("Loading account data started")
         disposable.add(studentRepository.getSavedStudents(false)
             .subscribeOn(schedulers.backgroundThread)
             .observeOn(schedulers.mainThread)
+            .map { createAccountItems(it) }
             .subscribe({
                 Timber.i("Loading account result: Success")
                 view?.updateData(it)

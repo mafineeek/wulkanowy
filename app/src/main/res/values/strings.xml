@@ -282,6 +282,8 @@
     <string name="account_logout">Logout</string>
     <string name="account_confirm">Do you want to log out of an active student?</string>
     <string name="account_logout_student">Student logout</string>
+    <string name="account_type_student">Student</string>
+    <string name="account_type_parent">Parent</string>
 
 
     <!--About-->
