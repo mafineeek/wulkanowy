@@ -3,6 +3,8 @@ package io.github.wulkanowy.ui.modules.account
 import android.annotation.SuppressLint
 import android.graphics.PorterDuff
 import android.view.LayoutInflater
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import io.github.wulkanowy.R
@@ -52,6 +54,21 @@ class AccountAdapter @Inject constructor() : RecyclerView.Adapter<RecyclerView.V
         with(binding) {
             accountItemName.text = "${student.studentName} ${student.className}"
             accountItemSchool.text = student.schoolName
+            with(accountItemLoginMode) {
+                when (student.loginMode) {
+                    "API" -> {
+                        setText(R.string.account_login_mobile_api)
+                        visibility = VISIBLE
+                    }
+                    "HYBRID" -> {
+                        setText(R.string.account_login_hybrid)
+                        visibility = VISIBLE
+                    }
+                    else -> {
+                        visibility = GONE
+                    }
+                }
+            }
 
             with(accountItemImage) {
                 val colorImage = if (student.isCurrent) context.getThemeAttrColor(R.attr.colorPrimary)
