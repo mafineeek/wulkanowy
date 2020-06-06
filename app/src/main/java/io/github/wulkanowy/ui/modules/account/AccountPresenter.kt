@@ -86,7 +86,6 @@ class AccountPresenter @Inject constructor(
 
     private fun createAccountItems(items: List<Student>): List<AccountItem<*>> {
         return items.groupBy { Account(it.email, it.isParent) }.map { (account, students) ->
-            Timber.i("Account: ${account}\nFirst student: ${students.first()}")
             listOf(AccountItem(account, AccountItem.ViewType.HEADER)) + students.map { student ->
                 AccountItem(student, AccountItem.ViewType.ITEM)
             }
