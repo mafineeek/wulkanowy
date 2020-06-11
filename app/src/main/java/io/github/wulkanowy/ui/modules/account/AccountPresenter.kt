@@ -1,7 +1,6 @@
 package io.github.wulkanowy.ui.modules.account
 
 import io.github.wulkanowy.data.db.entities.Student
-import io.github.wulkanowy.data.pojos.Account
 import io.github.wulkanowy.data.repositories.student.StudentRepository
 import io.github.wulkanowy.services.sync.SyncManager
 import io.github.wulkanowy.ui.base.BasePresenter

@@ -2,6 +2,7 @@ package io.github.wulkanowy.data.repositories.student
 
 import io.github.wulkanowy.data.db.entities.Student
 import io.github.wulkanowy.sdk.Sdk
+import io.github.wulkanowy.utils.ifNullOrBlank
 import io.reactivex.Single
 import org.threeten.bp.LocalDateTime.now
 import javax.inject.Inject
@@ -14,8 +15,8 @@ class StudentRemote @Inject constructor(private val sdk: Sdk) {
     private fun mapStudents(students: List<SdkStudent>, email: String, password: String): List<Student> {
         return students.map { student ->
             Student(
-                email = email,
-                password = password,
+                email = email.ifBlank { student.email },
+                password = password.ifNullOrBlank { "" },
                 isParent = student.isParent,
                 symbol = student.symbol,
                 studentId = student.studentId,

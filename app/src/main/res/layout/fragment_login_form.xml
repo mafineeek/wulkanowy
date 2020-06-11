@@ -222,7 +222,7 @@
                 android:layout_marginEnd="16dp"
                 android:text="@string/login_advanced"
                 android:textAppearance="?android:textAppearance"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:backgroundTint="?android:windowBackground"
                 app:fontFamily="sans-serif-medium"
                 app:layout_constraintBottom_toBottomOf="@id/loginFormSignIn"

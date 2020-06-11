@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import io.github.wulkanowy.R
 import io.github.wulkanowy.data.db.entities.Student
-import io.github.wulkanowy.data.pojos.Account
 import io.github.wulkanowy.databinding.HeaderAccountBinding
 import io.github.wulkanowy.databinding.ItemAccountBinding
 import io.github.wulkanowy.utils.getThemeAttrColor
