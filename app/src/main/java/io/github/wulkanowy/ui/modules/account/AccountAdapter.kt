@@ -11,6 +11,7 @@ import io.github.wulkanowy.R
 import io.github.wulkanowy.data.db.entities.Student
 import io.github.wulkanowy.databinding.HeaderAccountBinding
 import io.github.wulkanowy.databinding.ItemAccountBinding
+import io.github.wulkanowy.sdk.Sdk
 import io.github.wulkanowy.utils.getThemeAttrColor
 import javax.inject.Inject
 
@@ -54,17 +55,17 @@ class AccountAdapter @Inject constructor() : RecyclerView.Adapter<RecyclerView.V
             accountItemName.text = "${student.studentName} ${student.className}"
             accountItemSchool.text = student.schoolName
             with(accountItemLoginMode) {
-                when (student.loginMode) {
-                    "API" -> {
+                visibility = when (Sdk.Mode.valueOf(student.loginMode)) {
+                    Sdk.Mode.API -> {
                         setText(R.string.account_login_mobile_api)
-                        visibility = VISIBLE
+                        VISIBLE
                     }
-                    "HYBRID" -> {
+                    Sdk.Mode.HYBRID -> {
                         setText(R.string.account_login_hybrid)
-                        visibility = VISIBLE
+                        VISIBLE
                     }
-                    else -> {
-                        visibility = GONE
+                    Sdk.Mode.SCRAPPER -> {
+                        GONE
                     }
                 }
             }
