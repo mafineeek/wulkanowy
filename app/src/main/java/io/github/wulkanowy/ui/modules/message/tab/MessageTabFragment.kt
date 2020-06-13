@@ -1,8 +1,12 @@
 package io.github.wulkanowy.ui.modules.message.tab
 
+import android.app.Activity.RESULT_OK
+import android.content.Intent
 import android.os.Bundle
+import android.speech.RecognizerIntent
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.View.GONE
 import android.view.View.INVISIBLE
@@ -29,8 +33,11 @@ class MessageTabFragment : BaseFragment<FragmentMessageTabBinding>(R.layout.frag
     @Inject
     lateinit var tabAdapter: MessageTabAdapter
 
+    private var searchMenuItem: MenuItem? = null
+
     companion object {
         const val MESSAGE_TAB_FOLDER_ID = "message_tab_folder_id"
+        const val REQUEST_CODE_SPEECH_RECOGNITION = 10
 
         fun newInstance(folder: MessageFolder): MessageTabFragment {
             return MessageTabFragment().apply {
@@ -77,16 +84,29 @@ class MessageTabFragment : BaseFragment<FragmentMessageTabBinding>(R.layout.frag
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.action_menu_message_tab, menu)
 
-        val searchView = menu.findItem(R.id.action_search).actionView as SearchView
-        searchView.queryHint = getString(R.string.all_search_hint)
-        searchView.maxWidth = Int.MAX_VALUE
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String) = false
-            override fun onQueryTextChange(query: String): Boolean {
-                presenter.onSearchQueryTextChange(query)
-                return true
+        searchMenuItem = menu.findItem(R.id.action_search)
+        (searchMenuItem?.actionView as SearchView?)?.apply {
+            queryHint = getString(R.string.all_search_hint)
+            maxWidth = Int.MAX_VALUE
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String) = false
+                override fun onQueryTextChange(query: String): Boolean {
+                    presenter.onSearchQueryTextChange(query)
+                    return true
+                }
+            })
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_search -> true
+            R.id.action_search_voice -> {
+                startVoiceRecognition()
+                true
             }
-        })
+            else -> false
+        }
     }
 
     override fun updateData(data: List<Message>) {
@@ -153,5 +173,24 @@ class MessageTabFragment : BaseFragment<FragmentMessageTabBinding>(R.layout.frag
     override fun onDestroyView() {
         presenter.onDetachView()
         super.onDestroyView()
+    }
+
+    private fun startVoiceRecognition() {
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+        startActivityForResult(intent, REQUEST_CODE_SPEECH_RECOGNITION)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQUEST_CODE_SPEECH_RECOGNITION && resultCode == RESULT_OK) {
+            data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)?.get(0).let { match ->
+                searchMenuItem?.apply {
+                    expandActionView()
+                    val searchView = actionView as SearchView?
+                    searchView?.setQuery(match, true)
+                }
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 }

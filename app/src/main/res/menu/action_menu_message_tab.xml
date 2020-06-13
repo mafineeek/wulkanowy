@@ -8,4 +8,10 @@
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:iconTint="@color/material_on_surface_emphasis_medium"
         app:showAsAction="collapseActionView|ifRoom" />
+    <item
+        android:id="@+id/action_search_voice"
+        android:icon="@drawable/ic_voice_search"
+        android:title="@string/all_voice_search"
+        app:iconTint="@color/material_on_surface_emphasis_medium"
+        app:showAsAction="ifRoom" />
 </menu>
