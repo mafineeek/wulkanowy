@@ -4,6 +4,7 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import android.speech.RecognizerIntent
+import android.speech.SpeechRecognizer
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -96,6 +97,9 @@ class MessageTabFragment : BaseFragment<FragmentMessageTabBinding>(R.layout.frag
                 }
             })
         }
+
+        val voiceSearchMenuItem = menu.findItem(R.id.action_search_voice)
+        voiceSearchMenuItem.isVisible = SpeechRecognizer.isRecognitionAvailable(context)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
