@@ -32,6 +32,7 @@ import io.github.wulkanowy.ui.modules.more.MoreFragment
 import io.github.wulkanowy.ui.modules.note.NoteFragment
 import io.github.wulkanowy.ui.modules.timetable.TimetableFragment
 import io.github.wulkanowy.utils.FirebaseAnalyticsHelper
+import io.github.wulkanowy.utils.UpdateHelper
 import io.github.wulkanowy.utils.dpToPx
 import io.github.wulkanowy.utils.getThemeAttrColor
 import io.github.wulkanowy.utils.safelyPopFragments
@@ -49,6 +50,9 @@ class MainActivity : BaseActivity<MainPresenter, ActivityMainBinding>(), MainVie
 
     @Inject
     lateinit var analytics: FirebaseAnalyticsHelper
+
+    @Inject
+    lateinit var updateHelper: UpdateHelper
 
     @Inject
     lateinit var overlayProvider: Lazy<ElevationOverlayProvider>
@@ -89,6 +93,7 @@ class MainActivity : BaseActivity<MainPresenter, ActivityMainBinding>(), MainVie
         setContentView(ActivityMainBinding.inflate(layoutInflater).apply { binding = this }.root)
         setSupportActionBar(binding.mainToolbar)
         messageContainer = binding.mainFragmentContainer
+        updateHelper.messageContainer = binding.mainFragmentContainer
 
         presenter.onAttachView(this, intent.getSerializableExtra(EXTRA_START_MENU) as? MainView.Section)
 
@@ -96,6 +101,17 @@ class MainActivity : BaseActivity<MainPresenter, ActivityMainBinding>(), MainVie
             initialize(startMenuIndex, savedInstanceState)
             pushFragment(moreMenuFragments[startMenuMoreIndex])
         }
+        updateHelper.checkAndInstallUpdates(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateHelper.onResume(this)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        updateHelper.onActivityResult(requestCode, resultCode)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
