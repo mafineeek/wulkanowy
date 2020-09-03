@@ -168,6 +168,8 @@
     <string name="attendance_excused_lateness">Спізнення з поважних причин</string>
     <string name="attendance_unexcused_lateness">Спізнення з не поважних причин</string>
     <string name="attendance_present">Присутність</string>
+    <string name="attendance_deleted">Deleted</string>
+    <string name="attendance_unknown">Unknown</string>
     <string name="attendance_number">Номер уроку</string>
     <string name="attendance_no_items">Брак записів</string>
     <plurals name="attendance_number_absences">
