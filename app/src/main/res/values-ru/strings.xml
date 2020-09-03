@@ -168,6 +168,8 @@
     <string name="attendance_excused_lateness">Опоздание по уважительным причинам</string>
     <string name="attendance_unexcused_lateness">Опоздание по неуважительным причинам</string>
     <string name="attendance_present">Присутствие</string>
+    <string name="attendance_deleted">Deleted</string>
+    <string name="attendance_unknown">Unknown</string>
     <string name="attendance_number">Урок №</string>
     <string name="attendance_no_items">Данные не найдены</string>
     <plurals name="attendance_number_absences">
