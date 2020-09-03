@@ -154,6 +154,8 @@
     <string name="attendance_excused_lateness">Entschuldigte Verspätung</string>
     <string name="attendance_unexcused_lateness">Unentschuldigte Verspätung</string>
     <string name="attendance_present">Anwesend</string>
+    <string name="attendance_deleted">Deleted</string>
+    <string name="attendance_unknown">Unknown</string>
     <string name="attendance_number">Lektion Nummer</string>
     <string name="attendance_no_items">Keine Einträgen</string>
     <plurals name="attendance_number_absences">
