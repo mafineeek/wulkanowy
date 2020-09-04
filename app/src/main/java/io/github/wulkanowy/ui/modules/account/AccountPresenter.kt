@@ -27,12 +27,12 @@ class AccountPresenter @Inject constructor(
 
     fun onAddSelected() {
         Timber.i("Select add account")
-        view?.openLoginView()
+        //view?.openLoginView()
     }
 
     fun onRemoveSelected() {
         Timber.i("Select remove account")
-        view?.showConfirmDialog()
+        //  view?.showConfirmDialog()
     }
 
     fun onLogoutConfirm() {
@@ -55,7 +55,7 @@ class AccountPresenter @Inject constructor(
                         openClearLoginView()
                     } else {
                         Timber.i("Logout result: Switch to another student")
-                        recreateMainView()
+                        //  recreateMainView()
                     }
                 }
                 Status.ERROR -> {
@@ -64,20 +64,20 @@ class AccountPresenter @Inject constructor(
                 }
             }
         }.afterLoading {
-            view?.dismissView()
+            // view?.dismissView()
         }.launch("logout")
     }
 
     fun onItemSelected(studentWithSemesters: StudentWithSemesters) {
         Timber.i("Select student item ${studentWithSemesters.student.id}")
         if (studentWithSemesters.student.isCurrent) {
-            view?.dismissView()
+            //view?.dismissView()
         } else flowWithResource { studentRepository.switchStudent(studentWithSemesters) }.onEach {
             when (it.status) {
                 Status.LOADING -> Timber.i("Attempt to change a student")
                 Status.SUCCESS -> {
                     Timber.i("Change a student result: Success")
-                    view?.recreateMainView()
+                    //     view?.recreateMainView()
                 }
                 Status.ERROR -> {
                     Timber.i("Change a student result: An exception occurred")
@@ -85,16 +85,19 @@ class AccountPresenter @Inject constructor(
                 }
             }
         }.afterLoading {
-            view?.dismissView()
+            // view?.dismissView()
         }.launch("switch")
     }
 
     private fun createAccountItems(items: List<StudentWithSemesters>): List<AccountItem<*>> {
-        return items.groupBy { Account(it.student.email, it.student.isParent) }.map { (account, students) ->
-            listOf(AccountItem(account, AccountItem.ViewType.HEADER)) + students.map { student ->
-                AccountItem(student, AccountItem.ViewType.ITEM)
-            }
-        }.flatten()
+        return items.groupBy { Account(it.student.email, it.student.isParent) }
+            .map { (account, students) ->
+                listOf(
+                    AccountItem(account, AccountItem.ViewType.HEADER)
+                ) + students.map { student ->
+                    AccountItem(student, AccountItem.ViewType.ITEM)
+                }
+            }.flatten()
     }
 
     private fun loadData() {

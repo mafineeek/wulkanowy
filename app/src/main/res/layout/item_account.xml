@@ -4,16 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?selectableItemBackground"
+    android:background="@android:color/white"
+    android:elevation="4dp"
     android:orientation="horizontal"
-    android:paddingVertical="8dp"
     android:paddingHorizontal="16dp"
+    android:paddingVertical="8dp"
     tools:context=".ui.modules.account.AccountAdapter">
 
     <ImageView
         android:id="@+id/accountItemImage"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_marginStart="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_all_account"

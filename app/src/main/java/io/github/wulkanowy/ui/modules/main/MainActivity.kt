@@ -21,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.github.wulkanowy.R
 import io.github.wulkanowy.databinding.ActivityMainBinding
 import io.github.wulkanowy.ui.base.BaseActivity
-import io.github.wulkanowy.ui.modules.account.AccountDialog
+import io.github.wulkanowy.ui.modules.account.AccountFragment
 import io.github.wulkanowy.ui.modules.attendance.AttendanceFragment
 import io.github.wulkanowy.ui.modules.exam.ExamFragment
 import io.github.wulkanowy.ui.modules.grade.GradeFragment
@@ -169,7 +169,7 @@ class MainActivity : BaseActivity<MainPresenter, ActivityMainBinding>(), MainVie
     }
 
     override fun showAccountPicker() {
-        navController.showDialogFragment(AccountDialog.newInstance())
+        navController.pushFragment(AccountFragment.newInstance())
     }
 
     override fun showActionBarElevation(show: Boolean) {
