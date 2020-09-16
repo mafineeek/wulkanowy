@@ -126,8 +126,8 @@
         <item quantity="other">Вы получили %1$d оценок</item>
     </plurals>
     <plurals name="grade_notify_new_items_predicted">
-        <item quantity="one">You received %1$d predicted grade</item>
-        <item quantity="few">You received %1$d predicted grades</item>
+        <item quantity="one">Вы получили %1$d ожидаемую оценку</item>
+        <item quantity="few">Вы получили %1$d ожидаемые оценки</item>
         <item quantity="many">You received %1$d predicted grades</item>
         <item quantity="other">You received %1$d predicted grades</item>
     </plurals>
@@ -207,7 +207,7 @@
     <string name="message_delete_forever">Удалить навсегда</string>
     <string name="message_delete_success">Сообщение успешно удалено</string>
     <string name="message_share">Поделиться</string>
-    <string name="message_print">Print</string>
+    <string name="message_print">Печать</string>
     <string name="message_subject">Тема</string>
     <string name="message_content">Текст</string>
     <string name="message_send_successful">Сообщение успешно отправлено</string>
